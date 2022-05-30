@@ -1,8 +1,9 @@
 from todoist_api_python.api import TodoistAPI
-import config
+from config import config
 from furl import furl
 
-api = TodoistAPI(config.token)
+config = config()
+api = TodoistAPI(config['token'])
 
 
 def comment(content, id):

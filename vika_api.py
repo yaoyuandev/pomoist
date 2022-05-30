@@ -1,8 +1,10 @@
 from vika import Vika
-import config
-vika = Vika(config.vika['token'])
+from config import config
+config = config()
 
-datasheet = vika.datasheet(config.vika['datasheet'], field_key="name")
+vika = Vika(config['vika']['token'])
+
+datasheet = vika.datasheet(config['vika']['datasheet'], field_key="name")
 
 
 def insert(title, project, root, id):
