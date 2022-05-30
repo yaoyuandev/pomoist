@@ -25,13 +25,20 @@ class AwesomeStatusBarApp(rumps.App):
             f.close()
             todoist.comment('start', todoist.get_id(url))
 
+    @rumps.clicked('💤 relax')
+    def relax(self, _):
+        global x
+        x = 5 * 60
+        timer.start()
+
     @rumps.clicked("🛑 stop")
     def stop(self, _):
         timer.stop()
         app.title = 'pomoist'
+        timer.start()
 
 
-def show(sender):
+def tick(sender):
     global x
     print(sender)
     x -= 1
@@ -46,6 +53,6 @@ def time(x):
     return f'{x // 60}:{x % 60}'
 
 
-timer = rumps.Timer(show, 1)
+timer = rumps.Timer(tick, 1)
 app = AwesomeStatusBarApp("pomoist")
 app.run()
