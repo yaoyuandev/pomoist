@@ -1,6 +1,6 @@
 import rumps
 import clipboard
-import todoist
+import sync
 rumps.debug_mode(True)
 
 x = 0
@@ -23,7 +23,7 @@ class AwesomeStatusBarApp(rumps.App):
             f.writelines([url, '\n'])
             timer.start()
             f.close()
-            todoist.comment('start', todoist.get_id(url))
+            sync.sync(url)
 
     @rumps.clicked('💤 relax')
     def relax(self, _):
