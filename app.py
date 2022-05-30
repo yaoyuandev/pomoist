@@ -1,5 +1,6 @@
 import rumps
 import clipboard
+import todoist
 rumps.debug_mode(True)
 
 x = 0
@@ -17,11 +18,12 @@ class AwesomeStatusBarApp(rumps.App):
         resp = win.run()
         print(resp)
         if resp.clicked:
-            print(resp.text)
+            url = resp.text
             f = open('data.txt', 'a')
-            f.writelines([resp.text, '\n'])
+            f.writelines([url, '\n'])
             timer.start()
             f.close()
+            todoist.comment('start', todoist.get_id(url))
 
     @rumps.clicked("🛑 stop")
     def stop(self, _):
