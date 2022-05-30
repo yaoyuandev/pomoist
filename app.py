@@ -6,11 +6,8 @@ x = 0
 
 
 class AwesomeStatusBarApp(rumps.App):
-    @rumps.clicked("stop")
-    def stop(self, _):
-        timer.stop()
 
-    @rumps.clicked("start")
+    @rumps.clicked('🔥 start')
     def start(self, sender):
         global x
         print('start')
@@ -25,6 +22,11 @@ class AwesomeStatusBarApp(rumps.App):
             f.writelines([resp.text, '\n'])
             timer.start()
             f.close()
+
+    @rumps.clicked("🛑 stop")
+    def stop(self, _):
+        timer.stop()
+        app.title = 'pomoist'
 
 
 def show(sender):
