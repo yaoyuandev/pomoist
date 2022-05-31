@@ -37,6 +37,13 @@ class AwesomeStatusBarApp(rumps.App):
     def break_(self, _):
         vika_api.insert_break()
 
+    @rumps.clicked('🛌 big relax')
+    def big(self, _):
+        global x
+        x = 20 * 60
+        timer.start()
+        vika_api.insert_label('big')
+
     @rumps.clicked("🛑 stop")
     def stop(self, _):
         timer.stop()
