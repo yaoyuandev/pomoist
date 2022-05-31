@@ -22,5 +22,7 @@ def get_id(s):
 def get_task(id):
     task = api.get_task(id)
     project = api.get_project(task.project_id)
-    root = api.get_project(project.parent_id)
+    root = None
+    if project.parent_id != None:
+        root = api.get_project(project.parent_id)
     return {"task": task, "project": project, "root": root}
