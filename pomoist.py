@@ -6,6 +6,8 @@ rumps.debug_mode(True)
 
 x = 0
 
+pause = 'pause'
+
 
 class AwesomeStatusBarApp(rumps.App):
 
@@ -43,8 +45,22 @@ class AwesomeStatusBarApp(rumps.App):
         timer.start()
         vika_api.insert_label('big')
 
+    @rumps.clicked('⏸️ pause')
+    def pause(self, sender):
+        global x
+        if x == 0:
+            return
+        if timer.is_alive():
+            timer.stop()
+            sender.title = '▶️ resume'
+        else:
+            timer.start()
+            sender.title = '⏸️ pause'
+
     @rumps.clicked("🛑 stop")
     def stop(self, _):
+        global x
+        x = 0
         timer.stop()
         app.title = 'pomoist'
 
