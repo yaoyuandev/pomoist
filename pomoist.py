@@ -51,7 +51,7 @@ def tick(sender):
 
 
 def time(x):
-    return f'{x // 60}:{x % 60}'
+    return f'{x // 60:02d}:{x % 60:02d}'
 
 
 timer = rumps.Timer(tick, 1)
