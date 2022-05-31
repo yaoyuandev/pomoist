@@ -17,3 +17,15 @@ def insert(title, project, root, id):
     records = datasheet.records.all()
     for record in records:
         print(record.json())
+
+
+def insert_relax():
+    row = datasheet.records.create({
+        "title": "relax",
+        "project": '',
+        "root": '',
+        "id": 0
+    })
+    records = datasheet.records.all()
+    for record in records:
+        print(record.json())

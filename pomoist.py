@@ -1,6 +1,7 @@
 import rumps
 import clipboard
 import sync
+import vika_api
 rumps.debug_mode(True)
 
 x = 0
@@ -30,6 +31,7 @@ class AwesomeStatusBarApp(rumps.App):
         global x
         x = 5 * 60
         timer.start()
+        vika_api.insert_relax()
 
     @rumps.clicked("🛑 stop")
     def stop(self, _):
