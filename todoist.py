@@ -1,6 +1,7 @@
 from todoist_api_python.api import TodoistAPI
 from config import config
 from furl import furl
+import datetime
 
 config = config()
 api = TodoistAPI(config['token'])
@@ -26,3 +27,11 @@ def get_task(id):
     if project.parent_id != None:
         root = api.get_project(project.parent_id)
     return {"task": task, "project": project, "root": root}
+
+
+def due_today(id):
+    try:
+        is_success = api.update_task(task_id=id, due_string='today')
+        print(is_success)
+    except Exception as error:
+        print(error)
