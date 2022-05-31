@@ -35,7 +35,6 @@ class AwesomeStatusBarApp(rumps.App):
     def stop(self, _):
         timer.stop()
         app.title = 'pomoist'
-        timer.start()
 
 
 def tick(sender):
