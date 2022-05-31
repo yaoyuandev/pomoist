@@ -19,9 +19,9 @@ def insert(title, project, root, id):
         print(record.json())
 
 
-def insert_relax():
+def insert_label(label):
     row = datasheet.records.create({
-        "title": "relax",
+        "title": label,
         "project": '',
         "root": '',
         "id": 0
@@ -29,3 +29,11 @@ def insert_relax():
     records = datasheet.records.all()
     for record in records:
         print(record.json())
+
+
+def insert_relax():
+    insert_label('relax')
+
+
+def insert_break():
+    insert_label('break')
