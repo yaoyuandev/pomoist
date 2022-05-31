@@ -20,8 +20,6 @@ class AwesomeStatusBarApp(rumps.App):
         print(resp)
         if resp.clicked:
             url = resp.text
-            f = open('data.txt', 'a')
-            f.writelines([url, '\n'])
             timer.start()
             f.close()
             sync.sync(url)
