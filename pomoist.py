@@ -13,17 +13,16 @@ class AwesomeStatusBarApp(rumps.App):
     def start(self, sender):
         global x
         print('start')
-        x = 25*60
         win = rumps.Window("hello", ok="fire", cancel="cancel",
                            default_text=clipboard.paste())
         resp = win.run()
         print(resp)
         if resp.clicked:
             url = resp.text
-            f = open('data.txt', 'a')
-            f.writelines([url, '\n'])
-            timer.start()
-            f.close()
+            if x == 0:
+                x = 25*60
+                timer.start()
+
             sync.sync(url)
 
     @rumps.clicked('💤 relax')
