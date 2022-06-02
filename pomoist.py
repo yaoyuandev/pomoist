@@ -2,18 +2,19 @@ import rumps
 import clipboard
 import sync
 import vika_api
+import todoist
+
 rumps.debug_mode(True)
 
 x = 0
-
-pause = 'pause'
+current_task = ''
 
 
 class AwesomeStatusBarApp(rumps.App):
 
     @rumps.clicked('🔥 start')
     def start(self, sender):
-        global x
+        global x, current_task
         print('start')
         win = rumps.Window("hello", ok="fire", cancel="cancel",
                            default_text=clipboard.paste())
@@ -21,6 +22,8 @@ class AwesomeStatusBarApp(rumps.App):
         print(resp)
         if resp.clicked:
             url = resp.text
+            task = todoist.get_task_by_url(url)
+            current_task = task['task'].content
             if x == 0:
                 x = 25*60
                 timer.start()
@@ -29,7 +32,8 @@ class AwesomeStatusBarApp(rumps.App):
 
     @rumps.clicked('💤 relax')
     def relax(self, _):
-        global x
+        global x, current_task
+        current_task = ''
         x = 5 * 60
         timer.start()
         vika_api.insert_relax()
@@ -66,10 +70,10 @@ class AwesomeStatusBarApp(rumps.App):
 
 
 def tick(sender):
-    global x
+    global x, current_task
     print(sender)
     x -= 1
-    app.title = time(x)
+    app.title = f'{current_task} {time(x)}'
     if x == 0:
         timer.stop()
         rumps.notification("Awesome title", "amazing subtitle", "done")

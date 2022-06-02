@@ -29,6 +29,10 @@ def get_task(id):
     return {"task": task, "project": project, "root": root}
 
 
+def get_task_by_url(url):
+    return get_task(int(get_id(url)))
+
+
 def due_today(id):
     try:
         is_success = api.update_task(task_id=id, due_string='today')
