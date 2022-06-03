@@ -3,11 +3,19 @@ import clipboard
 import sync
 import vika_api
 import todoist
+import threading
 
 rumps.debug_mode(True)
 
 x = 0
 current_task = ''
+
+
+def sync_task(url):
+    global current_task
+    task = todoist.get_task_by_url(url)
+    current_task = task['task'].content
+    sync.sync(url)
 
 
 class AwesomeStatusBarApp(rumps.App):
@@ -21,14 +29,10 @@ class AwesomeStatusBarApp(rumps.App):
         resp = win.run()
         print(resp)
         if resp.clicked:
-            url = resp.text
-            task = todoist.get_task_by_url(url)
-            current_task = task['task'].content
             if x == 0:
                 x = 25*60
                 timer.start()
-
-            sync.sync(url)
+            threading.Thread(target=sync_task, args=(resp.text,)).start()
 
     @rumps.clicked('💤 relax')
     def relax(self, _):
@@ -36,18 +40,18 @@ class AwesomeStatusBarApp(rumps.App):
         current_task = ''
         x = 5 * 60
         timer.start()
-        vika_api.insert_relax()
+        threading.Thread(target=lambda _: vika_api.insert_relax()).start()
 
     @rumps.clicked('💢 break')
     def break_(self, _):
-        vika_api.insert_break()
+        threading.Thread(target=lambda _: vika_api.insert_break()).start()
 
     @rumps.clicked('🛌 big relax')
     def big(self, _):
         global x
         x = 20 * 60
         timer.start()
-        vika_api.insert_label('big')
+        threading.Thread(target=lambda _: vika_api.insert_label('big')).start()
 
     @rumps.clicked('⏸️ pause')
     def pause(self, sender):

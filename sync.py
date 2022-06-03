@@ -3,10 +3,13 @@ import vika_api
 
 
 def sync(url):
+    print(url)
     id = int(todoist.get_id(url))
+    print(id)
     todoist.comment('start', id)
     task = todoist.get_task(id)
-    if not task.due.recurring:
+    print(task)
+    if not task['task'].due or not task['task'].due.recurring:
         todoist.due_today(id)
     task_root_name = ''
     if task['root'] != None:
