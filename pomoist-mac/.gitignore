@@ -1,0 +1,8 @@
+data.txt
+__pycache__
+.eggs
+dist
+build
+.DS_Store
+.vscode
+*.zip
