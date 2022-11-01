@@ -32,3 +32,10 @@ pip3 install Vika
 
 ## vika
 <https://vika.cn/>
+
+## build
+```shell
+python setup.py py2app
+```
+
+

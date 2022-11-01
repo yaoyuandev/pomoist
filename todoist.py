@@ -15,6 +15,13 @@ def comment(content, id):
     print(comment)
 
 
+def label(label, id):
+    labels = api.get_task(id).labels
+    labels.append(label)
+    print(labels)
+    api.update_task(id, labels=labels)
+
+
 def get_id(s):
     f = furl(s)
     return f.args['id']

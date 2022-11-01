@@ -7,6 +7,7 @@ def sync(url):
     id = int(todoist.get_id(url))
     print(id)
     todoist.comment('start', id)
+    todoist.label('now', id)
     task = todoist.get_task(id)
     print(task)
     if not task['task'].due or not task['task'].due.recurring:
